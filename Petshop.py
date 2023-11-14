@@ -1,88 +1,10 @@
 import os
 import json
 
-class Animal:
-    def __init__(self, nome, especie, raça, idade, sexo):
-        self.nome = nome
-        self.especie = especie
-        self.raça = raça
-        self.idade = idade
-        self.sexo = sexo
-
-    def to_dict(self):
-        return {
-            "nome": self.nome,
-            "especie": self.especie,
-            "raça": self.raça,
-            "idade": self.idade,
-            "sexo": self.sexo,
-        }
-
-    @classmethod
-    def from_dict(cls, data):
-        return cls(data["nome"], data["especie"], data["raça"], data["idade"], data["sexo"])
-
-class Produto:
-    def __init__(self, nome, descricao, preco):
-        self.nome = nome
-        self.descricao = descricao
-        self.preco = preco
-
-    def to_dict(self):
-        return {
-            "nome": self.nome,
-            "descricao": self.descricao,
-            "preco": self.preco,
-        }
-
-    @classmethod
-    def from_dict(cls, data):
-        return cls(data["nome"], data["descricao"], data["preco"])
-
-class Serviço:
-    def __init__(self, nome, descricao, preco):
-        self.nome = nome
-        self.descricao = descricao
-        self.preco = preco
-
-    def to_dict(self):
-        return {
-            "nome": self.nome,
-            "descricao": self.descricao,
-            "preco": self.preco,
-        }
-
-    @classmethod
-    def from_dict(cls, data):
-        return cls(data["nome"], data["descricao"], data["preco"])
-
-class Carrinho:
-    def __init__(self):
-        self.itens = []
-
-    def adicionar_item(self, item, quantidade):
-        self.itens.append({
-            "item": item,
-            "quantidade": quantidade,
-        })
-
-    def calcular_total(self):
-        total = 0
-        for item in self.itens:
-            total += item["item"].preco * item["quantidade"]
-        return total
-
-    def to_dict(self):
-        return {
-            "itens": [item["item"].to_dict() for item in self.itens],
-            "total": self.calcular_total(),
-        }
-
-    @classmethod
-    def from_dict(cls, data):
-        carrinho = cls()
-        carrinho.itens = [{"item": Produto.from_dict(item["item"]), "quantidade": item["quantidade"]} for item in data["itens"]]
-        return carrinho
+from produto import Produto
+from animal import Animal
+from servico import Serviço
+from carrinho import Carrinho
 
 class SistemaPetshop:
     def __init__(self):
@@ -90,7 +12,7 @@ class SistemaPetshop:
         self.produtos = []
         self.servicos = []
         self.carrinho = Carrinho()
-
+        
     def cadastrar_animal(self):
         nome = input("Nome do animal: ")
         especie = input("Espécie: ")
@@ -100,7 +22,7 @@ class SistemaPetshop:
         animal = Animal(nome, especie, raça, idade, sexo)
         self.animais.append(animal)
         print("Animal cadastrado com sucesso.")
-
+        
     def cadastrar_produto(self):
         nome = input("Nome do produto: ")
         descricao = input("Descrição: ")
@@ -108,7 +30,7 @@ class SistemaPetshop:
         produto = Produto(nome, descricao, preco)
         self.produtos.append(produto)
         print("Produto cadastrado com sucesso.")
-
+        
     def cadastrar_servico(self):
         nome = input("Nome do serviço: ")
         descricao = input("Descrição: ")
@@ -116,10 +38,10 @@ class SistemaPetshop:
         servico = Serviço(nome, descricao, preco)
         self.servicos.append(servico)
         print("Serviço cadastrado com sucesso.")
-
+        
     def adicionar_item_carrinho(self):
-        tipo = input("Tipo (produto/serviço): ")
-        if tipo == "produto":
+        tipo = input("Comprar:\n1 - produto\n2 - serviço: ")
+        if tipo == "1":
             nome = input("Nome do produto: ")
             quantidade = int(input("Quantidade: "))
             produto = next((p for p in self.produtos if p.nome == nome), None)
@@ -128,7 +50,7 @@ class SistemaPetshop:
                 print(f"{quantidade} unidades do produto {nome} adicionadas ao carrinho.")
             else:
                 print("Produto não encontrado.")
-        elif tipo == "serviço":
+        elif tipo == "2":
             nome = input("Nome do serviço: ")
             quantidade = int(input("Quantidade: "))
             servico = next((s for s in self.servicos if s.nome == nome), None)
@@ -138,7 +60,7 @@ class SistemaPetshop:
             else:
                 print("Serviço não encontrado.")
         else:
-            print("Tipo inválido. Use 'produto' ou 'serviço'.")
+            print("Opção Inválida!")
 
     def calcular_total_compra(self):
         return self.carrinho.calcular_total()
@@ -198,7 +120,7 @@ class SistemaPetshop:
                 break
             else:
                 print("Opção inválida.")
-
+                
 if __name__ == "__main__":
     sistema = SistemaPetshop()
     sistema.menu()
