@@ -24,10 +24,11 @@ class SistemaPetshop:
         print("Animal cadastrado com sucesso.")
         
     def cadastrar_produto(self):
+        codigo = input("código do produto: ")
         nome = input("Nome do produto: ")
         descricao = input("Descrição: ")
         preco = float(input("Preço: "))
-        produto = Produto(nome, descricao, preco)
+        produto = Produto(codigo, nome, descricao, preco)
         self.produtos.append(produto)
         print("Produto cadastrado com sucesso.")
         
@@ -82,11 +83,14 @@ class SistemaPetshop:
                 self.produtos = [Produto.from_dict(produto) for produto in dados["produtos"]]
                 self.servicos = [Serviço.from_dict(servico) for servico in dados["servicos"]]
                 self.carrinho = Carrinho.from_dict(dados["carrinho"])
+                print("produtos", dados)
                 print("Dados carregados com sucesso.")
         except FileNotFoundError:
             print("Arquivo 'dados.json' não encontrado.")
         except json.JSONDecodeError:
             print("Erro ao carregar os dados do arquivo JSON.")
+            
+
 
     def menu(self):
         while True:
