@@ -1,12 +1,14 @@
 import json
 class Serviço:
-    def __init__(self, nome, descricao, preco):
+    def __init__(self, codigo, nome, descricao, preco):
+        self.codigo = codigo
         self.nome = nome
         self.descricao = descricao
         self.preco = preco
 
     def to_dict(self):
         return {
+            "codigo": self.codigo,
             "nome": self.nome,
             "descricao": self.descricao,
             "preco": self.preco,
@@ -14,5 +16,5 @@ class Serviço:
 
     @classmethod
     def from_dict(cls, data):
-        return cls(data["nome"], data["descricao"], data["preco"])
+        return cls(data["codigo"], data["nome"], data["descricao"], data["preco"])
     

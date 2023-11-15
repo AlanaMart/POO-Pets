@@ -14,17 +14,19 @@ class SistemaPetshop:
         self.carrinho = Carrinho()
         
     def cadastrar_animal(self):
+        codigo = input("Id do animal: ")
         nome = input("Nome do animal: ")
         especie = input("Espécie: ")
         raça = input("Raça: ")
         idade = input("Idade: ")
         sexo = input("Sexo: ")
-        animal = Animal(nome, especie, raça, idade, sexo)
+        preco = input("Valor: ")
+        animal = Animal(codigo, nome, especie, raça, idade, sexo, preco)
         self.animais.append(animal)
         print("Animal cadastrado com sucesso.")
         
     def cadastrar_produto(self):
-        codigo = input("código do produto: ")
+        codigo = input("Código do produto: ")
         nome = input("Nome do produto: ")
         descricao = input("Descrição: ")
         preco = float(input("Preço: "))
@@ -33,10 +35,11 @@ class SistemaPetshop:
         print("Produto cadastrado com sucesso.")
         
     def cadastrar_servico(self):
+        codigo = input("Código do serviço: ")
         nome = input("Nome do serviço: ")
         descricao = input("Descrição: ")
         preco = float(input("Preço: "))
-        servico = Serviço(nome, descricao, preco)
+        servico = Serviço(codigo, nome, descricao, preco)
         self.servicos.append(servico)
         print("Serviço cadastrado com sucesso.")
         
