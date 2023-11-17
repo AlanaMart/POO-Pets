@@ -1,5 +1,5 @@
 import json
-class Serviço:
+class Servico:
     def __init__(self, codigo, nome, descricao, preco):
         self.codigo = codigo
         self.nome = nome

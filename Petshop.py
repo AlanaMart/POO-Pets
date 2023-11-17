@@ -3,7 +3,7 @@ import json
 
 from produto import Produto
 from animal import Animal
-from servico import Serviço
+from servico import Servico
 from carrinho import Carrinho
 
 class SistemaPetshop:
@@ -39,16 +39,15 @@ class SistemaPetshop:
         nome = input("Nome do serviço: ")
         descricao = input("Descrição: ")
         preco = float(input("Preço: "))
-        servico = Serviço(codigo, nome, descricao, preco)
+        servico = Servico(codigo, nome, descricao, preco)
         self.servicos.append(servico)
         print("Serviço cadastrado com sucesso.")
         
     def adicionar_item_carrinho(self):
-        tipo = input("Comprar:\n1 - produto\n2 - serviço: ")
+        tipo = input("Adicionar:\n1 - produto\n2 - serviço\n3 - animal: ")
         if tipo == "1":
             with open("dados.json", "r") as arquivo:
                 dados = json.load(arquivo)
-
             for produto in dados["produtos"]:
                 print(f"{produto['codigo']} - {produto['nome']} - {produto['preco']}")
                 
@@ -60,15 +59,34 @@ class SistemaPetshop:
                 print(f"{quantidade} unidades do produto {produto.nome} adicionadas ao carrinho.")
             else:
                 print("Produto não encontrado.")
+                
         elif tipo == "2":
-            nome = input("Nome do serviço: ")
+            with open("dados.json", "r") as arquivo:
+                dados = json.load(arquivo)
+            for servico in dados["servicos"]:
+                print(f"{servico['codigo']} - {servico['nome']} - {servico['preco']}")
+                
+            codigo = input("Código do serviço: ")
             quantidade = int(input("Quantidade: "))
-            servico = next((s for s in self.servicos if s.nome == nome), None)
+            servico = next((s for s in self.servicos if s.codigo == codigo), None)
             if servico:
                 self.carrinho.adicionar_item(servico, quantidade)
-                print(f"{quantidade} unidades do serviço {nome} adicionadas ao carrinho.")
+                print(f"{quantidade} unidades do serviço {servico.nome} adicionadas ao carrinho.")
+                
+        elif tipo == "3":
+            with open("dados.json", "r") as arquivo:
+                dados = json.load(arquivo)
+            for animal in dados["animais"]:
+                print(f"{animal['codigo']} - {animal['nome']} - {animal['preco']}")
+                
+            codigo = input("Id do animal: ")
+            quantidade = int(input("Quantidade: "))
+            animal = next((a for a in self.animais if a.codigo == codigo), None)
+            if animal:
+                self.carrinho.adicionar_item(animal, quantidade)
+                print(f"{quantidade} unidades do animal {animal.nome} adicionadas ao carrinho.")
             else:
-                print("Serviço não encontrado.")
+                print("Animal não encontrado.")
         else:
             print("Opção Inválida!")
 
@@ -90,7 +108,7 @@ class SistemaPetshop:
                 dados = json.load(f)
                 self.animais = [Animal.from_dict(animal) for animal in dados["animais"]]
                 self.produtos = [Produto.from_dict(produto) for produto in dados["produtos"]]
-                self.servicos = [Serviço.from_dict(servico) for servico in dados["servicos"]]
+                self.servicos = [Servico.from_dict(servico) for servico in dados["servicos"]]
                 self.carrinho = Carrinho.from_dict(dados["carrinho"])
                 print("Dados carregados com sucesso.")
         except FileNotFoundError:
