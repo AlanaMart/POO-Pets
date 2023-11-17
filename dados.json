@@ -1,1 +1,1 @@
-{"animais": [], "produtos": [{"codigo": "2", "nome": "hf", "descricao": "dsd", "preco": 4.0}], "servicos": [], "carrinho": {"itens": [], "total": 0}}
+{"animais": [], "produtos": [{"codigo": "1", "nome": "racao", "descricao": "fhfdj", "preco": 4.0}, {"codigo": "2", "nome": "shampoo", "descricao": "dhfhfhdf", "preco": 7.0}], "servicos": [], "carrinho": {"itens": [{"codigo": "1", "nome": "racao", "descricao": "fhfdj", "preco": 4.0}, {"codigo": "2", "nome": "shampoo", "descricao": "dhfhfhdf", "preco": 7.0}], "total": 19.0}}

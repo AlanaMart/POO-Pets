@@ -46,12 +46,18 @@ class SistemaPetshop:
     def adicionar_item_carrinho(self):
         tipo = input("Comprar:\n1 - produto\n2 - serviço: ")
         if tipo == "1":
-            nome = input("Nome do produto: ")
+            with open("dados.json", "r") as arquivo:
+                dados = json.load(arquivo)
+
+            for produto in dados["produtos"]:
+                print(f"{produto['codigo']} - {produto['nome']} - {produto['preco']}")
+                
+            codigo = input("Código do produto: ")
             quantidade = int(input("Quantidade: "))
-            produto = next((p for p in self.produtos if p.nome == nome), None)
+            produto = next((p for p in self.produtos if p.codigo == codigo), None)
             if produto:
                 self.carrinho.adicionar_item(produto, quantidade)
-                print(f"{quantidade} unidades do produto {nome} adicionadas ao carrinho.")
+                print(f"{quantidade} unidades do produto {produto.nome} adicionadas ao carrinho.")
             else:
                 print("Produto não encontrado.")
         elif tipo == "2":
@@ -86,13 +92,14 @@ class SistemaPetshop:
                 self.produtos = [Produto.from_dict(produto) for produto in dados["produtos"]]
                 self.servicos = [Serviço.from_dict(servico) for servico in dados["servicos"]]
                 self.carrinho = Carrinho.from_dict(dados["carrinho"])
-                print("produtos", dados)
                 print("Dados carregados com sucesso.")
         except FileNotFoundError:
             print("Arquivo 'dados.json' não encontrado.")
         except json.JSONDecodeError:
             print("Erro ao carregar os dados do arquivo JSON.")
-            
+
+
+    
 
 
     def menu(self):
