@@ -1,1 +1,1 @@
-{"animais": [{"codigo": "1", "nome": "Geruso", "especie": "pato", "ra\u00e7a": "pato de casa", "idade": "1 ano", "sexo": "m", "preco": "0"}], "produtos": [], "servicos": [], "carrinho": {"itens": [], "total": 0}}
+{"animais": [{"codigo": "001", "nome": "jubs", "especie": "pato", "ra\u00e7a": "borracha", "idade": "6 meses", "sexo": "m", "preco": "0"}], "produtos": [], "servicos": [], "clientes": [], "funcionarios": [], "carrinho": {"itens": [], "total": 0}}

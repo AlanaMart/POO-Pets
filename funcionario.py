@@ -3,6 +3,7 @@ class Funcionario:
         self.codigo = codigo
         self.nome = nome
         self.cargo = cargo
+        
 
     def to_dict(self):
         return {
