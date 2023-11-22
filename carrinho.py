@@ -1,4 +1,6 @@
 from produto import Produto
+from servico import Servico
+from animal import Animal
 import json
 
 class Carrinho:
