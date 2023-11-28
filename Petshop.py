@@ -24,7 +24,7 @@ class SistemaPetshop:
         raça = input("Raça: ")
         idade = input("Idade: ")
         sexo = input("Sexo: ")
-        preco = input("Valor: ")
+        preco = float(input("Valor: "))
         animal = Animal(codigo, nome, especie, raça, idade, sexo, preco)
         self.animais.append(animal)
         print("Animal cadastrado com sucesso.")
@@ -157,7 +157,7 @@ class SistemaPetshop:
                 self.servicos = [Servico.from_dict(servico) for servico in dados["servicos"]]
                 self.clientes = [Cliente.from_dict(cliente) for cliente in dados ["clientes"]]
                 self.funcionarios = [Funcionario.from_dict(funcionario) for funcionario in dados ["funcionarios"]]
-                # self.carrinho = Carrinho.from_dict(dados["carrinho"])
+                #self.carrinho = Carrinho.from_dict(dados["carrinho"])
                 print("Dados carregados com sucesso.")
         except FileNotFoundError:
             print("Arquivo 'dados.json' não encontrado.")
