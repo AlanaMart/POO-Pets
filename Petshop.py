@@ -62,7 +62,7 @@ class SistemaPetshop:
         cargo = input("Cargo: ")
         funcionario = Funcionario(codigo, nome, cargo)
         self.funcionarios.append(funcionario)
-        print("Cliente cadastrado com sucesso.")
+        print("Funcionario cadastrado com sucesso.")
         
     def adicionar_item_carrinho(self):
         tipo = input("Adicionar:\n1 - produto\n2 - serviço\n3 - animal: ")
@@ -144,7 +144,7 @@ class SistemaPetshop:
                 "produtos": [produto.to_dict() for produto in self.produtos],
                 "servicos": [servico.to_dict() for servico in self.servicos],
                 "clientes": [cliente.to_dict() for cliente in self.clientes],
-                "funcionarios": [funcionario.to_dict() for funcionario in self.clientes],
+                "funcionarios": [funcionario.to_dict() for funcionario in self.funcionarios],
                 "carrinho": self.carrinho.to_dict(),
             }, f)
 
@@ -157,7 +157,7 @@ class SistemaPetshop:
                 self.servicos = [Servico.from_dict(servico) for servico in dados["servicos"]]
                 self.clientes = [Cliente.from_dict(cliente) for cliente in dados ["clientes"]]
                 self.funcionarios = [Funcionario.from_dict(funcionario) for funcionario in dados ["funcionarios"]]
-                self.carrinho = Carrinho.from_dict(dados["carrinho"])
+                # self.carrinho = Carrinho.from_dict(dados["carrinho"])
                 print("Dados carregados com sucesso.")
         except FileNotFoundError:
             print("Arquivo 'dados.json' não encontrado.")
@@ -171,10 +171,12 @@ class SistemaPetshop:
             print("2. Cadastrar produto")
             print("3. Cadastrar serviço")
             print("4. Adicionar item ao carrinho")
-            print("5. Calcular total da compra")
-            print("6. Salvar dados")
-            print("7. Carregar dados")
-            print("8. Sair")
+            print("5. Cadastrar Cliente")
+            print("6. Cadastrar Funcionario")            
+            print("7. Calcular total da compra")
+            print("8. Salvar dados")
+            print("9. Carregar dados")
+            print("0. Sair")
 
             escolha = input("Escolha uma opção: ")
 
@@ -187,12 +189,16 @@ class SistemaPetshop:
             elif escolha == "4":
                 self.adicionar_item_carrinho()
             elif escolha == "5":
-                print(f"O valor total da compra é de R${self.calcular_total_compra():.2f}")
+                self.cadastrar_cliente()
             elif escolha == "6":
-                self.salvar()
+                self.cadastrar_funcionario()
             elif escolha == "7":
-                self.carregar()
+                print(f"O valor total da compra é de R${self.calcular_total_compra():.2f}")
             elif escolha == "8":
+                self.salvar()
+            elif escolha == "9":
+                self.carregar()
+            elif escolha == "0":
                 print("Saindo...")
                 break
             else:
