@@ -136,6 +136,26 @@ class SistemaPetshop:
 
     def calcular_total_compra(self):
         return self.carrinho.calcular_total()
+    
+    def finalizar_compra(self):
+    
+        codigo_funcionario = input("Digite o código do funcionário: ")
+        id_cliente = input("Digite o id do cliente: ")
+        funcionario = next((f for f in self.funcionarios if f.codigo == codigo_funcionario), None)
+        cliente = next((c for c in self.clientes if c.codigo == id_cliente), None)
+        if funcionario and cliente:
+            print(f"Recibo de compra")
+            print(f"Cliente: {cliente.nome}")
+            print(f"Funcionário: {funcionario.nome}")
+            print("Itens comprados:")
+            for item in self.carrinho.itens:
+                print(f"{item['item'].nome}: {item['quantidade']} x {item['item'].preco} = {item['item'].preco * item['quantidade']}")
+            print(f"Total da compra: R${self.carrinho.calcular_total():.2f}")
+        else:
+            print("Funcionário ou cliente não encontrado.")
+
+    
+
 
     def salvar(self):
         with open("dados.json", "w") as f:
@@ -177,6 +197,7 @@ class SistemaPetshop:
             print("8. Salvar dados")
             print("9. Carregar dados")
             print("0. Sair")
+            print("11. finalizar")
 
             escolha = input("Escolha uma opção: ")
 
@@ -198,6 +219,8 @@ class SistemaPetshop:
                 self.salvar()
             elif escolha == "9":
                 self.carregar()
+            elif escolha =="11":
+                self.finalizar_compra()
             elif escolha == "0":
                 print("Saindo...")
                 break
