@@ -27,6 +27,7 @@ class SistemaPetshop:
         preco = float(input("Valor: "))
         animal = Animal(codigo, nome, especie, raça, idade, sexo, preco)
         self.animais.append(animal)
+        self.salvar()
         print("Animal cadastrado com sucesso.")
         
     def cadastrar_produto(self):
@@ -36,6 +37,7 @@ class SistemaPetshop:
         preco = float(input("Preço: "))
         produto = Produto(codigo, nome, descricao, preco)
         self.produtos.append(produto)
+        self.salvar()
         print("Produto cadastrado com sucesso.")
         
     def cadastrar_servico(self):
@@ -45,6 +47,7 @@ class SistemaPetshop:
         preco = float(input("Preço: "))
         servico = Servico(codigo, nome, descricao, preco)
         self.servicos.append(servico)
+        self.salvar()
         print("Serviço cadastrado com sucesso.")
         
     def cadastrar_cliente(self):
@@ -54,6 +57,7 @@ class SistemaPetshop:
         endereco = input("endereço: ")
         cliente = Cliente(codigo, nome, telefone, endereco)
         self.clientes.append(cliente)
+        self.salvar()
         print("Cliente cadastrado com sucesso.")
 
     def cadastrar_funcionario(self):
@@ -62,6 +66,7 @@ class SistemaPetshop:
         cargo = input("Cargo: ")
         funcionario = Funcionario(codigo, nome, cargo)
         self.funcionarios.append(funcionario)
+        self.salvar()
         print("Funcionario cadastrado com sucesso.")
         
     def adicionar_item_carrinho(self):
@@ -78,6 +83,7 @@ class SistemaPetshop:
             if produto:
                 self.carrinho.adicionar_item(produto, quantidade)
                 print(f"{quantidade} unidades do produto {produto.nome} adicionadas ao carrinho.")
+                self.salvar()
             else:
                 print("Produto não encontrado.")
                 
@@ -93,13 +99,14 @@ class SistemaPetshop:
             if servico:
                 self.carrinho.adicionar_item(servico, quantidade)
                 print(f"{quantidade} unidades do serviço {servico.nome} adicionadas ao carrinho.")
+                self.salvar()
                 
         elif tipo == "3":
             print("1. Adotar animal")
             print("2. Comprar animal")
             escolha = input("Escolha uma opção: ")
             if escolha == "1":
-                animais_disponiveis_para_adocao = [a for a in self.animais if a.preco == "0"]
+                animais_disponiveis_para_adocao = [a for a in self.animais if a.preco == 0]
                 if animais_disponiveis_para_adocao:
                     for animal in animais_disponiveis_para_adocao:
                         print(f"{animal.codigo} - {animal.nome} - {animal.especie} - {animal.raça} - {animal.idade} - {animal.sexo}")
@@ -109,13 +116,14 @@ class SistemaPetshop:
                         if animal:
                             self.animais.remove(animal)
                             print(f"Animal {animal.nome} adotado com sucesso.")
+                            self.salvar()
                         else:
                             print("Animal não encontrado.")                    
                 else:
                     print("Não há animais disponíveis para adoção.")
                     
             elif escolha == "2":
-                animais_disponiveis_compra = [a for a in self.animais if a.preco != "0"]
+                animais_disponiveis_compra = [a for a in self.animais if a.preco != 0]
                 if animais_disponiveis_compra:
                     for animal in animais_disponiveis_compra:
                         print(f"{animal.codigo} - {animal.nome} - {animal.especie} - {animal.raça} - {animal.idade} - {animal.sexo} - {animal.preco}")
@@ -125,6 +133,7 @@ class SistemaPetshop:
                 if animal:
                     self.carrinho.adicionar_item(animal, quantidade)
                     print(f"Animal {animal.nome} adicionado ao carrinho.")
+                    self.salvar()
                 else:
                     print("Animal não encontrado.")
                    
