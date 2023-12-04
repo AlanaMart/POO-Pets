@@ -153,6 +153,7 @@ class SistemaPetshop:
         funcionario = next((f for f in self.funcionarios if f.codigo == codigo_funcionario), None)
         cliente = next((c for c in self.clientes if c.codigo == id_cliente), None)
         if funcionario and cliente:
+            print("\n*************************************\n")
             print(f"Recibo de compra")
             print(f"Cliente: {cliente.nome}")
             print(f"Funcionário: {funcionario.nome}")
@@ -160,6 +161,7 @@ class SistemaPetshop:
             for item in self.carrinho.itens:
                 print(f"{item['item'].nome}: {item['quantidade']} x {item['item'].preco} = {item['item'].preco * item['quantidade']}")
             print(f"Total da compra: R${self.carrinho.calcular_total():.2f}")
+            print("\n******** OBRIGADO PELA COMPRA***********\n")
         else:
             print("Funcionário ou cliente não encontrado.")
 
@@ -203,10 +205,9 @@ class SistemaPetshop:
             print("5. Cadastrar Cliente")
             print("6. Cadastrar Funcionario")            
             print("7. Calcular total da compra")
-            print("8. Salvar dados")
+            print("8. Finalizar compra")
             print("9. Carregar dados")
             print("0. Sair")
-            print("11. finalizar")
 
             escolha = input("Escolha uma opção: ")
 
@@ -225,11 +226,9 @@ class SistemaPetshop:
             elif escolha == "7":
                 print(f"O valor total da compra é de R${self.calcular_total_compra():.2f}")
             elif escolha == "8":
-                self.salvar()
+                self.finalizar_compra()
             elif escolha == "9":
                 self.carregar()
-            elif escolha =="11":
-                self.finalizar_compra()
             elif escolha == "0":
                 print("Saindo...")
                 break
